@@ -1,0 +1,25 @@
+{
+  "confidence_threshold": 0.25,
+  "images": [
+    {
+      "file": "images/01_multiple_objects.jpg",
+      "expected_objects": ["person", "person"]
+    },
+    {
+      "file": "images/02_single_object.jpg",
+      "expected_objects": ["car"]
+    },
+    {
+      "file": "images/03_partial_object.jpg",
+      "expected_objects": ["chair"]
+    },
+    {
+      "file": "images/04_small_object.jpg",
+      "expected_objects": ["bottle"]
+    },
+    {
+      "file": "images/05_no_target.jpg",
+      "expected_objects": []
+    }
+  ]
+}
