@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Погода</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 32rem; margin: 3rem auto; padding: 0 1rem; }
+    form { display: flex; gap: .5rem; margin: 1.5rem 0; }
+    input { flex: 1; padding: .5rem; font-size: 1rem; }
+    button { padding: .5rem 1rem; font-size: 1rem; cursor: pointer; }
+    #result { min-height: 3rem; }
+    .weather-value { margin: .75rem 0; font-size: 1.1rem; }
+    .error { color: #b00020; }
+  </style>
+</head>
+<body>
+  <h1>Погода</h1>
+
+  <form id="weather-form">
+    <input id="city" name="city" placeholder="Назва міста" autocomplete="off" required>
+    <button type="submit">Показати</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    // Сторінка звертається до власного ендпоінта застосунку, а не до
+    // зовнішнього API напряму. Як показувати результат і як формулювати
+    // повідомлення про помилку — на ваш розсуд.
+    const form = document.getElementById('weather-form');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const city = document.getElementById('city').value.trim();
+      result.className = '';
+      result.textContent = 'Запит…';
+
+      try {
+        const response = await fetch('/api/weather?city=' + encodeURIComponent(city));
+        const data = await response.json();
+
+        if (!response.ok) {
+          result.className = 'error';
+          result.textContent = 'Помилка: ' + (data.detail || 'не вдалося отримати погоду.');
+          return;
+        }
+
+        result.innerHTML = `
+          <h2>${escapeHtml(data.city)}</h2>
+          <p class="weather-value">Температура: <strong>${data.temperature} °C</strong></p>
+          <p class="weather-value">Швидкість вітру: <strong>${data.wind_speed} км/год</strong></p>
+        `;
+      } catch (error) {
+        result.className = 'error';
+        result.textContent = 'Не вдалося звернутися до сервера.';
+      }
+    });
+
+    function escapeHtml(value) {
+      const element = document.createElement('div');
+      element.textContent = value;
+      return element.innerHTML;
+    }
+  </script>
+</body>
+</html>
