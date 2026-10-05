@@ -1,0 +1,7 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+compare/requests.json
+compare/findings.md
+compare/results.*
