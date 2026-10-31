@@ -1,0 +1,80 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Unit tests RAG PR6",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-m",
+				"unittest",
+				"discover",
+				"-s",
+				"tests",
+				"-v"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run PR6 eval",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"eval/run_eval.py"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run PR6 baseline eval",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"eval/run_eval.py",
+				"--label",
+				"baseline",
+				"--report",
+				"eval/report-baseline.json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run PR6 eval with 5 context chunks",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"eval/run_eval.py",
+				"--context-chunks",
+				"5",
+				"--label",
+				"context-5",
+				"--report",
+				"eval/report-context-5.json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build PR6 document index",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"ingest.py"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check PR6 environment",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"check_env.py"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

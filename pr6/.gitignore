@@ -1,0 +1,8 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+index/
+eval/questions.json
+eval/findings.md
+eval/report*.json
